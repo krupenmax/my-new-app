@@ -1,8 +1,11 @@
 {
-    "/maps/*": {
-        "target": "datasciencetoolkit.org",
+    "/grp/": {
+        "target": "http://www.portal.nalog.gov.by/",
         "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": ""
+        },
+        "logLevel": "debug"
     }
 }

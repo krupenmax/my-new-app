@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PullcompanyService } from '../pullcompany.service';
+import { CompanyService } from '../company.service';
+import { Observable, from} from 'rxjs';
+import { CompanyInterface } from '../company-type';
 
 @Component({
   selector: 'app-company-info',
@@ -8,13 +10,12 @@ import { PullcompanyService } from '../pullcompany.service';
   templateUrl: './company-info.component.html',
 })
 export class CompanyInfoComponent implements OnInit {
-
-  constructor(private pullCompanyService: PullcompanyService) { }
-
-  public pullCompanies(): void {
-    this.pullCompanyService.subscribe();
+  constructor(private companyService: CompanyService) {
+   }
+  public subscribe() {
+    this.companyService.myObservable.subscribe(this.companyService.mes);
   }
-
+ 
   ngOnInit(): void {
   }
 
