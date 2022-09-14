@@ -13,7 +13,7 @@ export class CompanyInfoComponent implements OnInit {
   constructor(private companyService: CompanyService) {
    }
   public subscribe() {
-    this.companyService.myObservable.subscribe(this.companyService.mes);
+    this.companyService.companyObservable.subscribe();
   }
  
   ngOnInit(): void {
