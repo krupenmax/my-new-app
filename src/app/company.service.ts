@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CompanyInterface } from './company-type';
-import { Observer, Observable, from, concatMap, of, delay, mergeMap, concat, map, tap, timer} from 'rxjs';
+import { Observer, Observable, from, concatMap, of, delay, mergeMap, concat, map, tap, timer, pipe, switchMap, toArray, interval, bufferTime, concatAll, mergeAll, throttle} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NgIfContext } from '@angular/common';
 import { rowType } from './row';
@@ -22,18 +22,17 @@ export class CompanyService {
     '191111948',
     '193545149',
   ] 
-  public companyObservable: Observable<rowType[]> = new Observable();
+  public companyObservable: Observable<rowType[]>; // = new Observable();
+  
   constructor(private http: HttpClient) {
-    this.companyObservable = of(this.UNP).pipe(
-      map(data => {
-        let arrObservable: rowType[] = [];
-        data.forEach(data => {
-          let temp: Observable<rowType> = new Observable();
-          temp = this.http.get<rowType>('grp/getData?unp=' + data + '&charset=UTF-8&type=json');
-          temp.forEach(secondData => arrObservable.push(secondData))
-        })
-        return arrObservable;
-      })
+    // from(this.UNP).pipe(
+    //   delay(1000),
+    // ).subscribe(e => console.log(e));
+
+    this.companyObservable = from(this.UNP).pipe(
+      
+      concatMap(data => this.http.get<rowType>(`grp/getData?unp=${data}&charset=UTF-8&type=json`).pipe(delay(1000))),
+      toArray()
     );
   }
 }
