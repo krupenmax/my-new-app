@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CompanyInterface } from './company-type';
-import { Observer, Observable, from, concatMap, of, delay, mergeMap, concat, map, tap, timer, pipe, switchMap, toArray, interval, bufferTime, concatAll, mergeAll, throttle} from 'rxjs';
+import { Observer, Observable, from, concatMap, of, delay, mergeMap, concat, map, tap, timer, pipe, switchMap, toArray, interval, bufferTime, concatAll, mergeAll, throttle, concatMapTo} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NgIfContext } from '@angular/common';
 import { rowType } from './row';
 import { RouterLinkWithHref } from '@angular/router';
+import { setDelay } from './my-operator';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,9 @@ export class CompanyService {
     //   delay(1000),
     // ).subscribe(e => console.log(e));
 
+
     this.companyObservable = from(this.UNP).pipe(
-      
-      concatMap(data => this.http.get<rowType>(`grp/getData?unp=${data}&charset=UTF-8&type=json`).pipe(delay(1000))),
+      setDelay(data => this.http.get<rowType>(`grp/getData?unp=${data}&charset=UTF-8&type=json`)), 
       toArray()
     );
   }

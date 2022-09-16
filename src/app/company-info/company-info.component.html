@@ -1,17 +1,39 @@
-<button class="load-companies" style="vertical-align:middle" method="GET"
-    (click)="subscribe()"><span>Load</span></button>
-<div class="grid-container" *ngIf="companyObservable | async as companies">
-    <div class="companies" *ngFor="let company of companies">
-        <div class="company">{{company.ROW.CKODSOST}}</div>
-        <div class="company">{{company.ROW.DLIKV}}</div>
-        <div class="company">{{company.ROW.DREG}}</div>
-        <div class="company">{{company.ROW.NMNS}}</div>
-        <div class="company">{{company.ROW.VKODS}}</div>
-        <div class="company">{{company.ROW.VLIKV}}</div>
-        <div class="company">{{company.ROW.VMNS}}</div>
-        <div class="company">{{company.ROW.VNAIMK}}</div>
-        <div class="company">{{company.ROW.VNAIMP}}</div>
-        <div class="company">{{company.ROW.VPADRES}}</div>
-        <div class="company">{{company.ROW.VUNP}}</div>
-    </div>
-</div>
+<button class="load-companies" style="vertical-align:middle" method="GET" (click)="subscribe()"
+    *ngIf="!isParsed"><span>Load</span></button>
+<table frame=void rules=rows class="grid-container" *ngIf="companyObservable | async as companies">
+    <tr class="row" *ngFor="let company of companies">
+        <td class="column">
+            <div class="company">{{company.ROW.CKODSOST}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.DLIKV}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.DREG}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.NMNS}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VKODS}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VLIKV}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VMNS}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VNAIMK}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VNAIMP}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VPADRES}}</div>
+        </td>
+        <td class="column">
+            <div class="company">{{company.ROW.VUNP}}</div>
+        </td>
+    </tr>
+</table>
